@@ -10,22 +10,22 @@ const inputPassword = document.getElementById('password');
 const login = (user) => {
 	buttonAuth.style.display = 'none';
 
-  buttonOut.style.display = 'flex';
-  userName.style.display = 'flex';
+	buttonOut.style.display = 'flex';
+	userName.style.display = 'flex';
 
-  userName.textContent = user.login;
-  modalAuth.style.display = 'none';
+	userName.textContent = user.login;
+	modalAuth.style.display = 'none';
 };
 
 const logout = () => {
-  buttonAuth.style.display = 'flex';
+	buttonAuth.style.display = 'flex';
 
 	buttonOut.style.display = 'none';
 	userName.style.display = 'none';
 
-  userName.textContent = '';
+	userName.textContent = '';
 
-  localStorage.removeItem('user')
+	localStorage.removeItem('user');
 };
 
 // modalAuth.style.color = 'red';
@@ -40,21 +40,25 @@ closeAuth.addEventListener('click', () => {
 });
 
 buttonOut.addEventListener('click', () => {
-  logout();
+	logout();
 });
 
 logInForm.addEventListener('submit', (event) => {
 	event.preventDefault();
 
-	const user = {
-		login: inputLogin.value,
-		password: inputPassword.value,
-	};
+	if (inputLogin.value === '') {
+		alert('Введите логин');
+	} else {
+		const user = {
+			login: inputLogin.value,
+			password: inputPassword.value,
+		};
 
-  localStorage.setItem('user', JSON.stringify(user))
-	login(user);
+		localStorage.setItem('user', JSON.stringify(user));
+		login(user);
+	}
 });
 
 if (localStorage.getItem('user')) {
-  login(JSON.parse(localStorage.getItem('user')))
+	login(JSON.parse(localStorage.getItem('user')));
 }
